@@ -593,29 +593,109 @@ class Manager extends EventEmitter {
    */
   async initLock(address) {
     const lock = this.newLocks.get(address);
-    if (lock === undefined) return false;
+    
+    console.log('==================================================');
+    console.log(`[PAIR] Starting pairing for ${address}`);
+
+    if (lock === undefined) {
+      console.error(`[PAIR] Lock ${address} is not present in newLocks`);
+      console.log('==================================================');
+      return false;
+    }
+
+    console.log(`[PAIR] Lock object found`);
+    console.log(`[PAIR] Connected before pairing: ${lock.isConnected()}`);
+
+    if (typeof lock.getAddress === 'function') {
+      console.log(`[PAIR] SDK address: ${lock.getAddress()}`);
+    }
+
+    if (lock.rssi !== undefined) {
+      console.log(`[PAIR] RSSI: ${lock.rssi}`);
+    }
+
+    if (lock.protocolType !== undefined) {
+      console.log(`[PAIR] protocolType: ${lock.protocolType}`);
+    }
+
+    if (lock.protocolVersion !== undefined) {
+      console.log(`[PAIR] protocolVersion: ${lock.protocolVersion}`);
+    }
+
+    if (lock.isSettingMode !== undefined) {
+      console.log(`[PAIR] isSettingMode: ${lock.isSettingMode}`);
+    }
+
+    /*
+     * A new/unpaired lock does not yet have admin credentials.
+     * Do NOT perform macro_adminLogin before initLock().
+     */
+    console.log('[PAIR] Stage 1: establishing BLE connection');
+
+    const connectStart = Date.now();
+
     // needsAdmin=false: a new/unpaired lock has no admin credentials yet. Running
     // macro_adminLogin (checkAdmin) before init fails with "No response to checkAdmin"
     // / NO_PERMISSION and burns all connect attempts before initLock() ever runs.
     // The SDK establishes admin credentials as part of initLock()'s own handshake.
     if (!(await this._connectLock(lock, false))) return false;
+
+    console.log(`[PAIR] Stage 1 completed in ${Date.now() - connectStart} ms; result=${connected}`);
+
+    if (!connected) {
+      console.error('[PAIR] FAILED: unable to establish BLE connection');
+      console.log('==================================================');
+      return false;
+    }
+
+    console.log(`[PAIR] BLE connected: ${lock.isConnected()}`);
+    console.log('[PAIR] Stage 2: calling SDK lock.initLock()');
+
     try {
+      const initStart = Date.now();
       const res = await withTimeout(lock.initLock(), 40000, 'initLock ' + address);
+
+      console.log(`[PAIR] lock.initLock() completed in ${Date.now() - initStart} ms`);
+
+      console.log('[PAIR] initLock result:', res);
+      console.log(`[PAIR] Connected after initLock: ${lock.isConnected()}`);
+
       if (res !== false) {
+        console.log('[PAIR] Stage 3: storing paired lock');
         this.pairedLocks.set(lock.getAddress(), lock);
         this.newLocks.delete(lock.getAddress());
         this._bindLockEvents(lock);
         this._saveLockFeatures(lock);
         // Persist deviceInfo (firmware, model, etc.) — getLockData() from the SDK doesn't include it
         if (lock.deviceInfo) {
+          console.log('[PAIR] deviceInfo:', lock.deviceInfo);
           store.setDeviceInfo(lock.getAddress(), lock.deviceInfo);
+        } else {
+          console.warn('[PAIR] No deviceInfo returned by SDK');
         }
         this.emit('lockPaired', lock);
         return true;
       }
+
+      console.error('[PAIR] FAILED: lock.initLock() returned false');
+      console.log('==================================================');
+
       return false;
     } catch (error) {
-      console.error(error);
+      console.error('[PAIR] FAILED during lock.initLock()');
+
+      if (error instanceof Error) {
+        console.error(`[PAIR] Error: ${error.message}`);
+
+        if (error.stack) {
+          console.error(`[PAIR] Stack:\n${error.stack}`);
+        }
+      } else {
+        console.error('[PAIR] Error object:', error);
+      }
+
+      console.log(`[PAIR] Connected after failure: ${lock.isConnected()}`);
+      console.log('==================================================');
       return false;
     } finally {
       this._releaseConnect(address);

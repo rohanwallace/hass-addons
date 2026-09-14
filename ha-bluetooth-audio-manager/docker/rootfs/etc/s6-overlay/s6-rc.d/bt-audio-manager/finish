@@ -1,7 +1,0 @@
-#!/command/with-contenv bashio
-# shellcheck shell=bash
-# ==============================================================================
-# Cleanup on service stop
-# ==============================================================================
-
-bashio::log.info "Bluetooth Audio Manager stopped."
