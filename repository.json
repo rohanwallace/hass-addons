@@ -1,5 +1,5 @@
 {
-  "name": "Domodom integration",
-  "url": "https://github.com/domodom30/hass-addons",
-  "maintainer": "Domodom30 <domodom30@gmail.com>"
+  "name": "TTLock integration",
+  "url": "https://github.com/rohanwallace/hass-addons",
+  "maintainer": "Rohan Wallace <services.github@wallace.cx>"
 }
