@@ -47,7 +47,7 @@
 ## 🔗 Useful Links
 
 - 🐛 [Report a bug](https://github.com/rohanwallace/hass-addons/issues)
-- 📦 [Original TTLock SDK Fork](https://github.com/domodom30/ttlock-sdk-js)
+- 📦 [Original TTLock SDK Fork](https://github.com/rohanwallace/ttlock-sdk-js)
 - 📡 [ESP32 BLE Gateway](https://github.com/domodom30/esp32-ble-gateway)
 
 ---

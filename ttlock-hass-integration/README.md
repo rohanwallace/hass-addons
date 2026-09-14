@@ -6,10 +6,10 @@
 
 **Integrate your TTLock smart locks directly into Home Assistant — no cloud required.**
 
-[![Version](https://img.shields.io/badge/version-2.7.7-blue?style=flat-square)](https://github.com/rohanwallace/hass-addons/blob/master/ttlock-hass-integration/CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.7.8-blue?style=flat-square)](https://github.com/rohanwallace/hass-addons/blob/master/ttlock-hass-integration/CHANGELOG.md)
 [![HA](https://img.shields.io/badge/Home%20Assistant-compatible-41BDF5?style=flat-square&logo=homeassistant)](https://www.home-assistant.io/)
 [![BLE](https://img.shields.io/badge/Bluetooth-BLE-0082FC?style=flat-square&logo=bluetooth)](https://github.com/abandonware/noble)
-[![SDK](https://img.shields.io/badge/SDK-%40domodom30%2Fttlock--sdk--js-orange?style=flat-square)](https://www.npmjs.com/package/@domodom30/ttlock-sdk-js)
+<!-- [![SDK](https://img.shields.io/badge/SDK-%40domodom30%2Fttlock--sdk--js-orange?style=flat-square)](https://www.npmjs.com/package/@domodom30/ttlock-sdk-js) -->
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE.md)
 
 > ⚠️ **Work in progress** — Feedback and bug reports welcome: [open an issue](https://github.com/domodom30/hass-addons/issues)
@@ -76,30 +76,30 @@
     <td align="center"><strong>Settings</strong></td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend.png" alt="Lock list" width="380"/></td>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend_settings.png" alt="Settings" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend.png" alt="Lock list" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend_settings.png" alt="Settings" width="380"/></td>
   </tr>
   <tr>
     <td align="center"><strong>PIN codes</strong></td>
     <td align="center"><strong>IC cards</strong></td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend_code.png" alt="PIN codes" width="380"/></td>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend_ic.png" alt="IC cards" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend_code.png" alt="PIN codes" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend_ic.png" alt="IC cards" width="380"/></td>
   </tr>
   <tr>
     <td align="center"><strong>Add IC card</strong></td>
     <td align="center"><strong>Operation log</strong></td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend_addIC.png" alt="Add IC card" width="380"/></td>
-    <td><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/frontend_operations.png" alt="Operation log" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend_addIC.png" alt="Add IC card" width="380"/></td>
+    <td><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/frontend_operations.png" alt="Operation log" width="380"/></td>
   </tr>
   <tr>
     <td align="center" colspan="2"><strong>Home Assistant — MQTT device</strong></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><img src="https://raw.githubusercontent.com/domodom30/hass-addons/master/ttlock-hass-integration/img/ha1.png" alt="HA device" width="600"/></td>
+    <td colspan="2" align="center"><img src="https://raw.githubusercontent.com/rohanwallace/hass-addons/master/ttlock-hass-integration/img/ha1.png" alt="HA device" width="600"/></td>
   </tr>
 </table>
 
@@ -163,8 +163,8 @@ gateway_pass: "YOUR_ADMIN_PASSWORD"
 ## 🔗 Useful links
 
 - 📝 [Changelog](CHANGELOG.md)
-- 🐛 [Report a bug](https://github.com/domodom30/hass-addons/issues)
-- 📦 [TTLock SDK fork](https://github.com/domodom30/ttlock-sdk-js)
+- 🐛 [Report a bug](https://github.com/rohanwallace/hass-addons/issues)
+- 📦 [TTLock SDK fork](https://github.com/rohanwallace/ttlock-sdk-js)
 - 📡 [ESP32 BLE gateway](https://github.com/domodom30/esp32-ble-gateway)
 
 ---
