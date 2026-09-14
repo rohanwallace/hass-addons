@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [2.7.7] — 2026-09-14
+
+### 🔧 Internal
+
+- **Added significant deubgging**: Added debugging code
+
+
 ## [2.7.6] — 2026-08-31
 
 ### 🔧 Internal
