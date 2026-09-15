@@ -1751,7 +1751,24 @@ class Manager extends EventEmitter {
       // a fixed ~15s poll, so the typical case is much faster — but a weak link can still
       // consume the SDK's full internal budget, so this 28000ms guard stays as a deliberately
       // conservative worst-case margin (not tuned down as part of the SDK bump).
-      const res = await withTimeout(lock.connect(false), 28000, 'connect ' + address);
+      let res;
+
+      if (this.gateway === 'noble') {
+        /*
+         * Keep the legacy timeout for the ESP32 noble-websocket transport.
+         */
+         res = await withTimeout(lock.connect(false), 28000, 'connect ' + address);
+      } else {
+        /*
+         * Local BlueZ transport:
+         *
+         * Do not Promise.race Device1.Connect. A JS timeout does not cancel
+         * the underlying D-Bus call and would cause the next retry to overlap
+         * the still-running first attempt.
+         */
+         res = await lock.connect(false);
+      }
+      
       if (!res) {
         if (lock.connecting) {
           let wait = 30;
