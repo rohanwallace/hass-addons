@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import mqtt from 'async-mqtt';
 import manager from './manager.js';
 import store from './store.js';
-import { LockedStatus } from '@domodom30/ttlock-sdk-js';
+//import { LockedStatus } from '@domodom30/ttlock-sdk-js';
 import {
   BRIDGE_AVAILABILITY_TOPIC,
   PAYLOAD_ONLINE,
@@ -25,6 +25,8 @@ import {
   OPERATION_EVENT_TYPES,
   isNewerOperation
 } from './mqttTopics.js';
+import ttlockSdk from '@domodom30/ttlock-sdk-js';
+const { LockedStatus } = ttlockSdk;
 
 // Read once at module load — used to populate the discovery `origin` block (HA
 // convention since 2023.8: attributes entities to the integration that created them,
