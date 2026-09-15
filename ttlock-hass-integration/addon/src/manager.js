@@ -5,7 +5,20 @@ import { readOperationLogIncremental, selectNewOperations } from './oplog.js';
 import { latestOperation } from './mqttTopics.js';
 import { shouldForceMonitorRecovery, MONITOR_SILENCE_MS } from './monitorHealth.js';
 import { getRecordTypeName } from './logOperateNames.js';
-import { TTLockClient, AudioManage, LockedStatus, LogOperateCategory, LogOperateNames } from '@domodom30/ttlock-sdk-js';
+//import { TTLockClient, AudioManage, LockedStatus, LogOperateCategory, LogOperateNames } from '@domodom30/ttlock-sdk-js';
+import ttlockSdk from '@domodom30/ttlock-sdk-js';
+
+const {
+  TTLockClient,
+  LockedStatus,
+  LogOperateCategory,
+  LogOperateNames
+} = ttlockSdk;
+
+console.log(
+  '[SDK] Loaded exports:',
+  Object.keys(ttlockSdk).sort().join(', ')
+);
 
 const ScanType = Object.freeze({
   NONE: 0,
