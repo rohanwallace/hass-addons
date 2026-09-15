@@ -1,9 +1,12 @@
-import { sleep } from '@domodom30/ttlock-sdk-js';
+//import { sleep } from '@domodom30/ttlock-sdk-js';
 import WebSocket from 'ws';
 import manager from '../src/manager.js';
 import store from '../src/store.js';
 import Message from './Message.js';
 import WsApi from './WsApi.js';
+import ttlockSdk from '@domodom30/ttlock-sdk-js';
+
+const { sleep } = ttlockSdk;
 
 // ── validation helpers ────────────────────────────────────────────────────────
 
