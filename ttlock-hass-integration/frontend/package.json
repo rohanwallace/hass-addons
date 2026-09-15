@@ -1,6 +1,6 @@
 {
   "name": "ttlock-hass-integration-frontend",
-  "version": "2.7.14",
+  "version": "2.7.15",
   "type": "module",
   "author": "Rohan Wallace <services.github@wallace.cx>",
   "scripts": {

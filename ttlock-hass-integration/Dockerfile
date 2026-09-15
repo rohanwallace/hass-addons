@@ -43,6 +43,12 @@ RUN chmod +x /start.sh
 # Once built, devDependencies are no longer needed at runtime.
 RUN NPM_CONFIG_INCLUDE=dev npm install --build-from-source
 
+RUN echo "===== TTLOCK SDK PACKAGE CONTENTS =====" && \
+    find /app/node_modules/@domodom30/ttlock-sdk-js/dist \
+      -maxdepth 2 -type f -print | sort && \
+    echo "===== CHECKING TTLockClient =====" && \
+    test -f /app/node_modules/@domodom30/ttlock-sdk-js/dist/TTLockClient.js
+
 # =========================
 # 🚀 entrypoint
 # =========================
