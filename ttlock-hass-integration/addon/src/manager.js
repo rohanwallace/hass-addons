@@ -151,7 +151,18 @@ class Manager extends EventEmitter {
         // largeMtu: use the negotiated ATT MTU for BLE writes instead of fixed 20-byte chunks.
         // No effect under noble-websocket (gateway) transport; auto-downgrades permanently to
         // 20 bytes on the first failed write, so this is a safe opportunistic speed-up.
-        let clientOptions = { largeMtu: true };
+        let clientOptions = {
+          /*
+           * node-ble does not expose the negotiated ATT MTU, so the BlueZ Device
+           * backend reports MTU 23 and the SDK will safely retain 20-byte writes.
+           */
+          largeMtu: false,
+
+          /*
+           * Modern local transport: BlueZ via host D-Bus.
+           */
+          scannerType: 'bluez'
+        };
 
         if (this.gateway == 'noble') {
           clientOptions.scannerType = 'noble-websocket';
