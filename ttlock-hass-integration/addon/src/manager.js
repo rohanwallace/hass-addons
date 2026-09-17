@@ -651,6 +651,49 @@ class Manager extends EventEmitter {
     }
 
     /*
+ * A factory-reset TTLock only accepts the initial connection for a short
+ * period after the keypad has been touched.
+ *
+ * Keep the BLE monitor running while we wait so advertisements continue to
+ * update this lock object. As soon as isTouch becomes true, connect
+ * immediately while the lock is awake.
+ */
+if (lock.isSettingMode !== true) {
+  console.error(
+    `[PAIR] Lock ${address} is not in setting/pairing mode`
+  );
+  return false;
+}
+
+if (lock.isTouch !== true) {
+  console.log(
+    `[PAIR] Lock is in pairing mode but is asleep. ` +
+    `Touch the keypad now; waiting up to 15 seconds...`
+  );
+
+  const wakeDeadline = Date.now() + 15000;
+
+  while (
+    lock.isTouch !== true &&
+    Date.now() < wakeDeadline
+  ) {
+    await sleep(100);
+  }
+
+  if (lock.isTouch !== true) {
+    console.error(
+      `[PAIR] Lock was not woken within 15 seconds. ` +
+      `Touch the keypad and try Pair again.`
+    );
+
+    return false;
+  }
+}
+
+console.log(
+  `[PAIR] Fresh touch advertisement received — connecting immediately`
+);
+    /*
      * A new/unpaired lock does not yet have admin credentials.
      * Do NOT perform macro_adminLogin before initLock().
      */
@@ -662,7 +705,8 @@ class Manager extends EventEmitter {
     // macro_adminLogin (checkAdmin) before init fails with "No response to checkAdmin"
     // / NO_PERMISSION and burns all connect attempts before initLock() ever runs.
     // The SDK establishes admin credentials as part of initLock()'s own handshake.
-    if (!(await this._connectLock(lock, false))) return false;
+    //if (!(await this._connectLock(lock, false))) return false;
+    const connected = await this._connectLock(lock, false);
 
     console.log(`[PAIR] Stage 1 completed in ${Date.now() - connectStart} ms; result=${connected}`);
 
@@ -1768,7 +1812,7 @@ class Manager extends EventEmitter {
          */
          res = await lock.connect(false);
       }
-      
+
       if (!res) {
         if (lock.connecting) {
           let wait = 30;
